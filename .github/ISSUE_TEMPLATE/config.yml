@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Linear's own features
+    url: https://linear.app
+    about: Writing issues, comments, cycles, roadmaps and views live in Linear itself, one click away through ↗ on any issue.
