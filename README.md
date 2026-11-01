@@ -10,6 +10,14 @@ and its login, so Herdr stores no API key. macOS only for now.
 
 ## Install
 
+Ask your agent:
+
+```
+Read ~/.config/herdr-app/AGENTS.md, then add this mod: https://github.com/angaziz/herdr-linear
+```
+
+Or by hand:
+
 1. Install and log in to the CLI. Editing needs a personal API key with write access.
 
    ```sh

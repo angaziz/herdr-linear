@@ -7,6 +7,24 @@ status, priority, assignee and the agent delegated to it, and starts an agent on
 issue in a new tab with a prompt the person writes. It reads and writes Linear
 through the person's own `linear` CLI login; no API key is stored in Herdr.
 
+## Installing
+
+Copying `mods/linear/` is not enough: `mod.json` is `"place": "none"`, so the panel
+shows only once a layout puts it beside Files and Changes. Shipped layouts and mods
+are read-only, so after copying the folder:
+
+1. `herdr-app do layout.clone '{"name":"main","as":"my-main"}'` (switches to it) and
+   `herdr-app do mod.clone '{"name":"tabs","as":"my-tabs"}'`. If the person already
+   has their own layout or tab bar clone, edit those instead.
+2. In the layout, add `{ "id": "linear", "type": "block", "content": { "mod": "linear" } }`
+   as a child of the `panel-body` stack, and point the `tabs` block at `my-tabs`.
+3. In `my-tabs/main.js`, append `"linear"` to `enabled` (the panels from
+   `shared("workspace.panels")`), and add
+   `.child(panelButton("linear", "Linear", "mods/linear/linear.svg"))` after the
+   Changes button.
+4. `herdr-app check` both mods, then click Linear in the tab bar: the welcome checks the
+   `linear` CLI (`brew install schpet/tap/linear`), the login and write access.
+
 ## What you see
 
 One block, `mods/linear`, filling the right panel (368px wide in `main`), drawn as a
