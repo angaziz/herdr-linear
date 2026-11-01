@@ -7,6 +7,8 @@ status, priority, assignee and the agent delegated to it, and starts an agent on
 issue in a new tab with a prompt the person writes. It reads and writes Linear
 through the person's own `linear` CLI login; no API key is stored in Herdr.
 
+![Linear](preview.png)
+
 ## Installing
 
 Copying `mods/linear/` is not enough: `mod.json` is `"place": "none"`, so the panel
