@@ -28,11 +28,11 @@ one without leaving the window where the work happens.
   the tests", as many as you like. `$issueId`, `$title`, `$url`, `$branch` and
   `$description` fill in from the issue. Press ▶, pick a play, and a new tab opens
   with that agent already working on it.
+- **Copy an issue ID** like `ENG-142` in one click.
 
 <p align="center">
   <img src="docs/plays.png" alt="Play actions in the Linear panel's settings" width="49%">
 </p>
-- **Copy an issue ID** like `ENG-142` in one click.
 
 ## How it talks to Linear
 
