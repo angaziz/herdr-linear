@@ -1,0 +1,31 @@
+name: Feature request
+description: Suggest something the Linear panel should do
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea. This mod is small on purpose: it covers what's worth doing
+        beside your terminals, and Linear itself (one click away through ↗) has everything
+        else. A request gets added when doing it in the panel is clearly better than
+        switching to Linear, so the second question below matters most.
+  - type: textarea
+    id: what
+    attributes:
+      label: What would you like the panel to do?
+      placeholder: For example, show the issue's labels in the list.
+    validations:
+      required: true
+  - type: textarea
+    id: why-here
+    attributes:
+      label: Why does it belong next to your terminals rather than in Linear?
+      description: When do you need it, and what does switching to Linear cost you at that moment?
+      placeholder: For example, I pick what to hand to an agent by label, and opening Linear for that breaks my flow.
+    validations:
+      required: true
+  - type: textarea
+    id: else
+    attributes:
+      label: Anything else?
+      description: Screenshots, how you work with agents, or how you'd expect it to look.
