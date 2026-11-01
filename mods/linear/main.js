@@ -241,10 +241,13 @@ export default class Linear extends View {
     cx.timer.every(5000, (cx) => { if (this.welcome && !this.setupDone() && this.shown()) this.checkSetup(cx); });
   }
 
+  // Fetching pauses only while this sits, unselected or folded away, in the right panel's
+  // stack; placed anywhere else (an overlay, another block), it counts as shown.
   shown() {
     const root = layout(), body = find(root, "panel-body");
-    if (!body) return true;
-    return !find(root, "panel")?.hidden && body.active === "linear";
+    const own = body?.children?.find((c) => c.content?.mod === "linear");
+    if (props()?.overlay || !own) return true;
+    return !find(root, "panel")?.hidden && body.active === own.id;
   }
 
   // A newer refresh (say, a filter change) wins over one still running.
