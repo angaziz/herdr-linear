@@ -933,8 +933,9 @@ export default class Linear extends View {
       .text_color(t.foreground).text_size(13)
       // A drag started in the terminal keeps selecting once the pointer crosses into the
       // description. Mods can't see the pressed button, so a press outside turns selection
-      // off and the next release inside turns it back on.
+      // off and a press or release inside turns it back on.
       .on_mouse_down_out((_e, cx) => { if (this.selectable) { this.selectable = false; cx.notify(); } })
+      .on_mouse_down("left", (_e, cx) => { if (!this.selectable) { this.selectable = true; cx.notify(); } })
       .on_mouse_up("left", (_e, cx) => { if (!this.selectable) { this.selectable = true; cx.notify(); } })
       .children(this.welcome ? this.renderWelcome(t) : this.settingsOpen ? this.renderSettings(t) : open ? this.renderDetail(open, t) : this.renderList(t))
       .when(!this.welcome && !this.settingsOpen && Boolean(this.menu), (el) => el
