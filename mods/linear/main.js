@@ -219,6 +219,7 @@ export default class Linear extends View {
     this.stack = []; this.details = {}; this.detailErrors = {}; this.updateErrors = {};
     this.expanded = new Set(); this.picking = null; this.saving = null; this.hover = null;
     this.search = ""; this.menu = null; this.projects = []; this.canWrite = null;
+    this.selectable = true;
     // Setup checks for the welcome screen: cli and viewer are null while unknown.
     this.setup = { cli: null, viewer: null, viewerError: null };
     const saved = prefs();
@@ -910,7 +911,7 @@ export default class Linear extends View {
         .when(this.canWrite !== false && Boolean(this.updateErrors[id]), (el) => el.child(div().mt(6).p(10).rounded(7).bg(t.ansi1 + "18").text_size(12).text_color(t.ansi1).child(this.updateErrors[id])))
         .child(div().my(14).h(1).bg(t.border))
         .child(d.description
-          ? TextView.markdown(`linear-desc-${id}`, d.description).selectable(true).text_size(12.5)
+          ? TextView.markdown(`linear-desc-${id}`, d.description).selectable(this.selectable).text_size(12.5)
           : div().px(2).text_color(t.dim).child("No description."))
         .when(children.length > 0, (el) => el
           .child(h_flex().pt(22).pb(8).px(2).gap(8).items_center()
@@ -930,6 +931,12 @@ export default class Linear extends View {
     const open = this.stack.at(-1);
     return v_flex().id("linear").relative().size_full().min_h(0).rounded(10).overflow_hidden().bg(t.background).border_1().border_color(t.border)
       .text_color(t.foreground).text_size(13)
+      // A drag started in the terminal keeps selecting once the pointer crosses into the
+      // description. Mods can't see the pressed button, so a press outside turns selection
+      // off and a press or release inside turns it back on.
+      .on_mouse_down_out((_e, cx) => { if (this.selectable) { this.selectable = false; cx.notify(); } })
+      .on_mouse_down("left", (_e, cx) => { if (!this.selectable) { this.selectable = true; cx.notify(); } })
+      .on_mouse_up("left", (_e, cx) => { if (!this.selectable) { this.selectable = true; cx.notify(); } })
       .children(this.welcome ? this.renderWelcome(t) : this.settingsOpen ? this.renderSettings(t) : open ? this.renderDetail(open, t) : this.renderList(t))
       .when(!this.welcome && !this.settingsOpen && Boolean(this.menu), (el) => el
         .child(div().id("linear-backdrop").absolute().inset_0().on_mouse_down("left", (_e, cx) => cx.stop_propagation())
